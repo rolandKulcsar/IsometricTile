@@ -18,10 +18,15 @@ namespace IsometricTile
             get;
             set;
         }
-        public Rectangle Rectangle
+
+        public int Witdh
         {
-            get;
-            set;
+            get { return texture.Width; }
+        }
+
+        public int Height
+        {
+            get { return texture.Height; }
         }
 
         public Vector2 Position

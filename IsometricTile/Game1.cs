@@ -59,13 +59,14 @@ namespace IsometricTile
             Tile.Content = Content;
 
             map.Generate(new int[,]{
+                {0,0,0,0,0,0,4,4,4,2,4,4,4,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,2,2,2,2,2,2,2,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,2,3,3,3,3,3,2,0,0,2,2,2,2,2},
                 {0,0,0,0,0,0,2,3,3,3,3,3,2,2,2,2,1,1,1,1},
                 {0,0,0,0,0,0,2,3,3,3,3,3,1,1,1,1,1,1,1,1},
                 {0,0,0,0,0,0,2,3,3,3,3,3,2,2,2,2,1,1,1,1},
                 {0,0,0,0,0,0,2,2,2,2,2,2,2,0,0,2,2,1,2,2},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,1,3,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,1,2,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0},
             }, 54);
 
@@ -102,7 +103,7 @@ namespace IsometricTile
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
             map.Draw(spriteBatch);
