@@ -19,7 +19,12 @@ namespace IsometricTile
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        #region Variables
         Map map;
+        Camera camera;
+        Player player;
+        Texture2D highLight;
+        #endregion
 
         public Game1(): base()
         {
@@ -43,6 +48,8 @@ namespace IsometricTile
             this.IsMouseVisible = true;
 
             map = new Map();
+            camera = new Camera(GraphicsDevice.Viewport);
+            player = new Player();
 
             base.Initialize();
         }
@@ -58,17 +65,19 @@ namespace IsometricTile
 
             Tile.Content = Content;
 
+            player.Load(Content);
+
             map.Generate(new int[,]{
-                {0,0,0,0,0,0,4,4,4,2,4,4,4,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,2,2,2,2,2,2,2,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,2,3,3,3,3,3,2,0,0,2,2,2,2,2},
-                {0,0,0,0,0,0,2,3,3,3,3,3,2,2,2,2,1,1,1,1},
-                {0,0,0,0,0,0,2,3,3,3,3,3,1,1,1,1,1,1,1,1},
-                {0,0,0,0,0,0,2,3,3,3,3,3,2,2,2,2,1,1,1,1},
+                {1,1,2,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0},
+                {1,1,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0},
+                {2,1,1,1,1,1,1,1,1,1,1,1,2,0,0,2,2,2,2,2},
+                {0,2,2,2,2,2,2,1,1,1,1,1,2,2,2,2,1,1,1,1},
+                {0,0,0,0,0,0,2,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {0,0,0,0,0,0,2,1,1,1,1,1,2,2,2,2,1,1,1,1},
                 {0,0,0,0,0,0,2,2,2,2,2,2,2,0,0,2,2,1,2,2},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,1,2,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0},
-            }, 54);
+            }, 50);
 
             // TODO: use this.Content to load your game content here
         }
@@ -80,6 +89,7 @@ namespace IsometricTile
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+            Content.Unload();
         }
 
         /// <summary>
@@ -91,6 +101,12 @@ namespace IsometricTile
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            MouseState ms = Mouse.GetState();
+            if(ms.LeftButton == ButtonState.Pressed)
+                Console.WriteLine(CoordinateHelper.twoDToIso(new Vector2(ms.X, ms.Y)));
+
+            camera.Update();
 
             // TODO: Add your update logic here
 
@@ -105,7 +121,10 @@ namespace IsometricTile
         {
             GraphicsDevice.Clear(Color.Black);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, 
+                              BlendState.AlphaBlend,
+                              null,null,null,null,
+                              camera.Transform);
             map.Draw(spriteBatch);
             spriteBatch.End();
 

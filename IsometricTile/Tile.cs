@@ -19,29 +19,29 @@ namespace IsometricTile
             set;
         }
 
-        public int Witdh
-        {
-            get { return texture.Width; }
-        }
-
-        public int Height
-        {
-            get { return texture.Height; }
-        }
-
         public Vector2 Position
         {
             get;
             set;
         }
-        public Tile(Vector2 position, int i)
+
+        public Tile(Vector2 position, int id)
         {
             this.Position = position;
-            texture = Content.Load<Texture2D>("Tile" + i);
+            texture = Content.Load<Texture2D>("Tile" + id);
+            ID = id;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, Position, Color.White);
+            if(ID == 1)
+                spriteBatch.Draw(texture, Position, Color.White);
+            else
+            {
+                Vector2 temp = Position;
+                temp.Y += -7f;
+                spriteBatch.Draw(texture, temp, Color.White);
+            }
+
         }
     }
 }

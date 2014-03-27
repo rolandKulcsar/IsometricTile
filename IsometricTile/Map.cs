@@ -31,40 +31,13 @@ namespace IsometricTile
 
                     if (number > 0)
                     {
-                        Vector2 temp = twoDToIso(new Vector2(x * size, y * size));
+                        Vector2 temp = CoordinateHelper.twoDToIso(new Vector2(x * size, y * size));
                         Tiles.Add(new Tile(temp, number));
                     }
 
                     Width = (x + 1) * size;
                     Height = (y + 1) * size;
                 }
-        }
-
-        public Vector2 IsoTo2D(Vector2 point)
-        {
-            Vector2 temp = new Vector2(0, 0);
-            temp.X = (2 * point.Y + point.X) / 2;
-            temp.Y = (2 * point.Y - point.X) / 2;
-
-            return temp;
-        }
-
-        public Vector2 twoDToIso(Vector2 point)
-        {
-            Vector2 temp = Vector2.Zero;
-            temp.X = point.X - point.Y;
-            temp.Y = (point.X + point.Y) / 2;
-
-            return temp;
-        }
-
-        public Vector2 getTileCoordinates(Vector2 point, int height)
-        {
-            Vector2 temp = Vector2.Zero;
-            temp.X = (float)Math.Floor(point.X / height);
-            temp.Y = (float)Math.Floor(point.Y / height);
-
-            return temp;
         }
 
         public void Draw(SpriteBatch spriteBatch)
