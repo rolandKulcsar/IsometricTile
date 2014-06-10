@@ -41,7 +41,6 @@ namespace IsometricTile
                 temp.Y += -7f;
                 spriteBatch.Draw(texture, temp, Color.White);
             }
-
         }
     }
 }

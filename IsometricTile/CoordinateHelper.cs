@@ -8,7 +8,7 @@ namespace IsometricTile
 {
     static class CoordinateHelper
     {
-        static public Vector2 IsoTo2D(Vector2 point)
+        public static Vector2 IsoTo2D(Vector2 point)
         {
             Vector2 temp = new Vector2(0, 0);
             temp.X = (2 * point.Y + point.X) / 2;
@@ -17,7 +17,7 @@ namespace IsometricTile
             return temp;
         }
 
-        static public Vector2 twoDToIso(Vector2 point)
+        public static Vector2 twoDToIso(Vector2 point)
         {
             Vector2 temp = Vector2.Zero;
             temp.X = point.X - point.Y;
@@ -26,7 +26,7 @@ namespace IsometricTile
             return temp;
         }
 
-        static public Vector2 getTileCoordinates(Vector2 point, int height)
+        public static Vector2 getTileCoordinates(Vector2 point, int height)
         {
             Vector2 temp = Vector2.Zero;
             temp.X = (float)Math.Floor(point.X / height);

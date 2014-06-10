@@ -19,12 +19,10 @@ namespace IsometricTile
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        #region Variables
         Map map;
         Camera camera;
         Player player;
         Texture2D highLight;
-        #endregion
 
         public Game1(): base()
         {
@@ -64,7 +62,6 @@ namespace IsometricTile
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Tile.Content = Content;
-
             player.Load(Content);
 
             map.Generate(new int[,]{
@@ -105,6 +102,10 @@ namespace IsometricTile
             MouseState ms = Mouse.GetState();
             if(ms.LeftButton == ButtonState.Pressed)
                 Console.WriteLine(CoordinateHelper.twoDToIso(new Vector2(ms.X, ms.Y)));
+
+            var destination = new Rectangle(100, 100, 50, 50);
+            bool mouseOver = destination.Contains(ms.X, ms.Y);
+            Console.WriteLine(mouseOver);
 
             camera.Update();
 
